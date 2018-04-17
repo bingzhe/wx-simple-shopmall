@@ -39,5 +39,3 @@ App({
     userInfo: null
   }
 })
-
-import './utils/ajax'

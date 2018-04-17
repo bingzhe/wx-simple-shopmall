@@ -4,7 +4,7 @@ import { encrypt, decrypt } from './encrypt'
 const md5 = require("./md5.min.js")
 const RSA = require('./wxapp_rsa.js')
 // 域名
-const BASE_URL = 'http://shop.jzzwlcm.com/php/'
+const BASE_URL = 'http://customer.jzzwlcm.com/php/'
 
 /**
  * 
@@ -189,7 +189,7 @@ const EncSubmit = function (url, data, resp_func/*, other --> {dataType:xxx, mim
         dataType: data_type || "json",
         data: param,
         success: function (resp) {
-            let resp = resp.data || {}
+            resp = resp.data || {}
 
             //未登录调回首页
             // if (resp.ret === errcode.USER_NOLOGIN) {

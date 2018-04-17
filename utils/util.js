@@ -1,5 +1,4 @@
-import http from './ajax'
-
+const EncSubmit = require('./http.js')
 const _toString = Object.prototype.toString
 const hasOwnProperty = Object.prototype.hasOwnProperty
 
@@ -155,7 +154,7 @@ const Util = {
     }
     return ret;
   },
-  http: http
+  EncSubmit: EncSubmit
 }
 
 export default Util
