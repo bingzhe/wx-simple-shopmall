@@ -1,7 +1,8 @@
 //index.js
 //获取应用实例
 const app = getApp()
-// import { shopinfoGet } from "../../api/api"
+
+const http = require('../../api/api')
 
 Page({
   data: {
@@ -62,9 +63,9 @@ Page({
       page_no: 1
     };
 
-    shopinfoGet(data).then(resp => {
-      console.log(resp)
-    })
+    // http.shopinfoGet(data).then(resp => {
+    //   console.log(resp)
+    // })
   }
 
 })

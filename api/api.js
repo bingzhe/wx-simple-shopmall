@@ -1,14 +1,14 @@
-import http from '../utils/http'
-
+import EncSubmit from '../utils/http'
+console.log(EncSubmit)
 // example
 export const shopinfoGet = function (data) {
-  return new Promise(resolve => {
-    http('shopinfo_get.php', data, resp => {
-      resolve(resp);
+    return new Promise(resolve => {
+        EncSubmit('shopinfo_get.php', data, resp => {
+            resolve(resp);
+        });
     });
-  });
 };
 
 module.exports = {
-  shopinfoGet: shopinfoGet
+    shopinfoGet: shopinfoGet
 }
