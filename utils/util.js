@@ -1,4 +1,3 @@
-const EncSubmit = require('./http.js')
 const _toString = Object.prototype.toString
 const hasOwnProperty = Object.prototype.hasOwnProperty
 
@@ -153,8 +152,7 @@ const Util = {
       ret += s[Util.GetRandom(0, s.length - 1)];
     }
     return ret;
-  },
-  EncSubmit: EncSubmit
+  }
 }
 
-export default Util
+module.exports = Util

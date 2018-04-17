@@ -1,5 +1,5 @@
-import EncSubmit from '../utils/http'
-console.log(EncSubmit)
+const EncSubmit = require('../../utils/http.js')
+
 // example
 export const shopinfoGet = function (data) {
     return new Promise(resolve => {
