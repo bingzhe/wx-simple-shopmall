@@ -1,6 +1,7 @@
 import { encrypt, decrypt } from './encrypt'
 
 const Util = require('./util.js')
+
 const md5 = require('./md5.min.js')
 const RSA = require('./wxapp_rsa.js')
 // 域名
@@ -25,7 +26,8 @@ const createToken = function () {
 const createKey = function () {
 
   let token = createToken(),
-    key
+    key,
+    ok = false
 
   // 取公钥
   function get_publickey() {
@@ -66,7 +68,10 @@ const createKey = function () {
 
       let encrypt_rsa = new RSA.RSAKey()
       encrypt_rsa = RSA.KEYUTIL.getKey(pubkey)
+      console.log('加密RSA:')
+      console.log(encrypt_rsa)
       let key_enc = encrypt_rsa.encrypt(key)
+      console.log("加密结果：" + key_enc)
 
       wx.request({
         url: `${BASE_URL}rsa_info.php?${Util.GetRandString(3)}`,
@@ -80,6 +85,7 @@ const createKey = function () {
         success: resp => {
           if (resp.statusCode === 200 && resp.data.ret === 0) {
             wx.setStorageSync('key', key)
+            ok = true
             resolve(key)
           } else {
             reject(resp)
@@ -92,11 +98,14 @@ const createKey = function () {
     })
   }
 
-  return get_publickey()
+  get_publickey()
     .then(submit_key)
     .catch(resp => {
       console.warn(resp)
     })
+  return ok
+
+
 }
 
 // 只序列化对象
@@ -141,7 +150,10 @@ const EncSubmit = function (url, data, resp_func/*, other --> {dataType:xxx, mim
   let key = wx.getStorageSync('key')
 
   if (!key) {
-    createKey()
+    let key_ok = createKey()
+    if (!key_ok) {
+      return
+    }
     key = wx.getStorageSync('key')
   }
 
@@ -182,7 +194,7 @@ const EncSubmit = function (url, data, resp_func/*, other --> {dataType:xxx, mim
   if (is_get_param) {
     return param
   }
-
+  debugger;
 
   wx.request({
     url: `${BASE_URL}${url}?${(new Date()).getTime()}`,
