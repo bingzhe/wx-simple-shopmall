@@ -1,4 +1,4 @@
-export const validate = {
+const validate = {
     //判断是否为邮箱地址
     isEmail: function (str) {
         return /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(str);
@@ -26,3 +26,6 @@ export const validate = {
         return false;
     },
 }
+
+
+module.exports = validate 
