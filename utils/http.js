@@ -71,7 +71,18 @@ const createKey = function () {
       console.log('加密RSA:')
       console.log(encrypt_rsa)
       let key_enc = encrypt_rsa.encrypt(key)
+      key_enc = RSA.hex2b64(key_enc);
       console.log("加密结果：" + key_enc)
+
+      // 解密
+      // var privateKey_pkcs1 
+      // var decrypt_rsa = new RSA.RSAKey();
+      // decrypt_rsa = RSA.KEYUTIL.getKey(privateKey_pkcs1);
+      // console.log('解密RSA:')
+      // console.log(decrypt_rsa)
+      // key_enc = RSA.b64tohex(key_enc)
+      // var decStr = decrypt_rsa.decrypt(key_enc)
+      // console.log("解密结果：" + decStr)
 
       wx.request({
         url: `${BASE_URL}rsa_info.php?${Util.GetRandString(3)}`,
@@ -103,6 +114,7 @@ const createKey = function () {
     .catch(resp => {
       console.warn(resp)
     })
+
   return ok
 
 
@@ -151,6 +163,7 @@ const EncSubmit = function (url, data, resp_func/*, other --> {dataType:xxx, mim
 
   if (!key) {
     let key_ok = createKey()
+    console.log(key_ok)
     if (!key_ok) {
       return
     }
@@ -194,13 +207,15 @@ const EncSubmit = function (url, data, resp_func/*, other --> {dataType:xxx, mim
   if (is_get_param) {
     return param
   }
-  debugger;
 
   wx.request({
     url: `${BASE_URL}${url}?${(new Date()).getTime()}`,
     method: "POST",
     dataType: data_type || "json",
     data: param,
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
     success: function (resp) {
       resp = resp.data || {}
 
